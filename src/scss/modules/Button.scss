@@ -1,0 +1,19 @@
+.Button {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background-color: $color-blue-primary;
+
+  &:disabled {
+    background-color: $color-grey-primary;
+  }
+}
+
+.switch {
+  transform: rotate(90deg);
+}
+
+@media (width <= 768px) {
+  .switch {
+    transform: none;
+  }
+}
