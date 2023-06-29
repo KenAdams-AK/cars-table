@@ -1,3 +1,5 @@
-const BASE_URL = "";
+const BASE_URL = "https://myfakeapi.com/api";
 
-export const apiRouts = {} as const;
+export const apiRouts = {
+  FETCH_CARS: `${BASE_URL}/cars`,
+} as const;

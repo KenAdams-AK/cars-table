@@ -16,6 +16,7 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T), tim
     if (typeof initialValue === "function") {
       return (initialValue as () => T)();
     }
+
     return initialValue;
   });
 
@@ -24,6 +25,7 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T), tim
       value,
       expiry: Date.now() + timeToLive * 1000,
     };
+
     localStorage.setItem(key, JSON.stringify(item));
   }, [key, value, timeToLive]);
 

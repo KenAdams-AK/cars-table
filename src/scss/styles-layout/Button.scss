@@ -1,0 +1,9 @@
+.Button {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background-color: $color-primary-button;
+
+  &:disabled {
+    background-color: $color-disabled-button;
+  }
+}

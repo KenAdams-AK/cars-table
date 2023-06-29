@@ -1,8 +1,8 @@
-type Props = {
+interface Props {
   isLoading: boolean;
-};
+}
 
-export default function LoaderFallback(props: Props) {
+export default function Loader(props: Props) {
   const { isLoading } = props;
 
   if (!isLoading) {
@@ -10,7 +10,7 @@ export default function LoaderFallback(props: Props) {
   }
 
   return (
-    <div role="status" aria-label="Loading" className="LoaderFallback">
+    <div role="status" aria-label="Loading" className="Loader">
       <div />
       <div />
       <div />
