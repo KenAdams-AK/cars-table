@@ -1,5 +1,6 @@
-import { ComponentProps } from "react";
+import { ComponentProps, useMemo } from "react";
 import { Car } from "../../models/car.model";
+import { patchCarObjectKeys } from "../../helpers/patchCarObjectKeys";
 
 interface Props extends ComponentProps<"table"> {
   data: Car[];
@@ -8,5 +9,15 @@ interface Props extends ComponentProps<"table"> {
 export default function TableHead(props: Props) {
   const { data } = props;
 
-  return <thead>TableHead</thead>;
+  const keys = useMemo(() => patchCarObjectKeys(data[0]), []);
+
+  return (
+    <thead className="TableHead">
+      <tr className="TableHead__row">
+        {keys.map((key) => (
+          <th key={key}>{key}</th>
+        ))}
+      </tr>
+    </thead>
+  );
 }

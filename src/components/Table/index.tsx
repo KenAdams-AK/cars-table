@@ -13,7 +13,7 @@ export default function Table() {
       <Loader isLoading={isLoading} />
       <ErrorContainer error={error} />
 
-      <table>
+      <table className="Table__table">
         <TableHead data={cars} />
         <TableBody data={cars} />
       </table>
