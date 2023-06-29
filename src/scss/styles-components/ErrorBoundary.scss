@@ -6,14 +6,13 @@
     transform: translate(-50%, -50%);
     width: 100%;
     max-width: 19.375rem;
-    background-color: $color-grey-light;
-    box-shadow: $box-shadow-card;
+    background-color: $color-accent;
     border-radius: 5px;
     padding: 2rem;
   }
 
   &__title {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
     text-align: center;
@@ -22,8 +21,7 @@
   &__button {
     display: block;
     padding: 1rem;
-    color: $color-white;
-    background-color: $color-grey;
+    background-color: $color-secondary-button;
     border-radius: 5px;
     margin: 0 auto;
     transition: scale ease 0.3s;

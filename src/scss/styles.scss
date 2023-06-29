@@ -2,12 +2,12 @@
 @import "shared";
 @import "config";
 
-@import "./modules/Header.scss";
-@import "./modules/Footer.scss";
+@import "./styles-layout/Header.scss";
+@import "./styles-layout/Footer.scss";
 
-@import "./modules/Button.scss";
+@import "./styles-layout/Button.scss";
 
-@import "./modules/LoaderFallback.scss";
-@import "./modules/ErrorContainer.scss";
+@import "./styles-components/Loader.scss";
+@import "./styles-components/ErrorContainer.scss";
 
-@import "./modules/ErrorBoundary.scss";
+@import "./styles-components/ErrorBoundary.scss";

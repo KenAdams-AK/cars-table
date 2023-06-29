@@ -1,13 +1,8 @@
-$color-white: hsl(0, 0%, 100%);
-$color-black: hsl(0, 0%, 0%);
-$color-black-primary: hsl(207, 71%, 11%);
-$color-grey: hsl(218, 12%, 49%);
-$color-grey-primary: hsl(240, 2%, 57%);
-$color-grey-light: hsl(240, 24%, 96%);
-$color-red-primary: hsl(0, 82%, 52%);
-$color-green-primary: hsl(120, 39%, 54%);
-$color-blue-primary: hsl(208, 97%, 47%);
-$color-blue-secondary: hsl(225, 71%, 38%);
-
-$box-shadow-card: 0px 1px 5px hsla(0, 0%, 0%, 0.2), 0px 3px 4px hsla(0, 0%, 0%, 0.12),
-  0px 2px 4px hsla(0, 0%, 0%, 0.14);
+$color-text: hsl(180, 40%, 98%);
+$color-background: hsl(180, 43%, 7%);
+$color-primary-button: hsl(357, 42%, 32%);
+$color-secondary-button: hsl(180, 47%, 3%);
+$color-disabled-button: hsl(168, 2%, 45%);
+$color-accent: hsl(357, 42%, 32%);
+$color-error: hsl(355, 85%, 50%);
+$color-loader: hsl(0, 26%, 44%);

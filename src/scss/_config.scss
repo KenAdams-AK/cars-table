@@ -1,58 +1,22 @@
-$color-dark: hsl(207, 71%, 11%);
-$color-light: hsl(240, 24%, 96%);
-
-@mixin background-light {
-  background: #70e1f5; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #ffd194, #70e1f5); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #ffd194,
-    #70e1f5
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-@mixin background-dark {
-  background-color: #090947;
-  background-image: linear-gradient(315deg, #090947 0%, #5a585a 74%);
-}
-
-@mixin font-set-label {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: $color-white;
-}
-
 body {
   font-family: "Roboto", sans-serif;
-  font-size: 0.875rem;
-  color: $color-dark;
-  @include background-light;
+  font-size: 1rem;
+  color: $color-text;
+  background-color: $color-background;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
 
-body.dark {
-  font-family: "Roboto", sans-serif;
-  font-size: 0.875rem;
-  color: $color-light;
-  @include background-dark;
-}
-
 #root {
-  width: 80%;
-  margin: 0 auto;
-
   min-height: 100%;
   display: flex;
   flex-direction: column;
 
   main {
-    flex: 1 1 auto;
-  }
-}
+    width: min(100% - 1rem, 1024px);
+    margin: 0 auto;
 
-@media (width <= 768px) {
-  #root {
-    width: 100%;
+    flex: 1 1 auto;
+    border: 1px solid red;
   }
 }
