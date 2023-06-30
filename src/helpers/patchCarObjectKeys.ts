@@ -1,15 +1,23 @@
 import { Car } from "../models/car.model";
 
 export function patchCarObjectKeys(carObject: Car) {
-  return Object.keys(carObject)
-    .slice(1)
-    .map((key) => {
-      const pattern = /car_|_/gi;
+  const keys = Object.keys(carObject) as Array<keyof Car>;
 
-      if (pattern.test(key)) {
-        return key.replace(pattern, " ").toUpperCase();
-      }
+  const newKeys = keys.map((key) => {
+    const pattern = /car_|_/gi;
 
-      return key.toUpperCase();
-    }) as Array<keyof Car>;
+    if (key === "car") {
+      return "company".toUpperCase();
+    }
+
+    if (pattern.test(key)) {
+      return key.replace(pattern, " ").toUpperCase();
+    }
+
+    return key.toUpperCase();
+  });
+
+  newKeys.push("actions".toLocaleUpperCase());
+
+  return newKeys;
 }

@@ -1,33 +1,9 @@
 .TableBody {
   &__row:hover {
-    background-color: $color-accent;
-    // cursor: pointer;
+    background-color: $color-disabled-button;
   }
 
   &__row td {
     padding: 0.5rem;
   }
-
-  // &__row td[data-column="buttons"] {
-  // 	pointer-events: none;
-
-  // 	button {
-  // 		@include button-primary;
-  // 		display: block;
-  // 		margin: 0.25rem auto;
-  // 		scale: 0.8;
-  // 		pointer-events: auto;
-
-  // 		&:first-of-type {
-  // 			background-color: $color-grey;
-  // 		}
-  // 		&:last-of-type {
-  // 			background-color: $color-error;
-  // 		}
-
-  // 		&[data-btn-save] {
-  // 			background-color: $color-success;
-  // 		}
-  // 	}
-  // }
 }

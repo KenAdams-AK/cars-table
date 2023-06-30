@@ -6,16 +6,20 @@ import Loader from "../Loader";
 import ErrorContainer from "../ErrorContainer";
 
 export default function Table() {
-  const { isLoading, error, cars } = useCars();
+  const { error, cars } = useCars();
 
   return (
     <>
-      <Loader isLoading={isLoading} />
+      <Loader isLoading={cars.length <= 0} />
       <ErrorContainer error={error} />
 
-      <table className="Table__table">
-        <TableHead data={cars} />
-        <TableBody data={cars} />
+      <table className="Table">
+        {cars && cars.length > 0 ? (
+          <>
+            <TableHead data={cars} />
+            <TableBody data={cars} />
+          </>
+        ) : null}
       </table>
     </>
   );
