@@ -7,14 +7,12 @@ import { useLocalStorage } from "./useLocalStorage";
 import { TTL } from "../constants/TimeToLive";
 import { Car } from "../models/car.model";
 
-export function useCars(): { isLoading: boolean; error: string; cars: Car[] } {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+export function useCars(): { error: string; cars: Car[] } {
   const [error, setError] = useState<string>("");
   const [cars, setCars] = useLocalStorage<Car[]>("cars", [], TTL.cars);
 
   useEffect(() => {
     if (cars.length > 0) {
-      setIsLoading(false);
       return undefined;
     }
 
@@ -26,13 +24,10 @@ export function useCars(): { isLoading: boolean; error: string; cars: Car[] } {
           setCars(data.cars);
         }
       })
-      .catch((err: Error) => setError(err.message))
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .catch((err: Error) => setError(err.message));
 
     return () => controller.abort();
   }, []);
 
-  return { isLoading, error, cars } as const;
+  return { error, cars } as const;
 }

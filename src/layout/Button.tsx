@@ -1,8 +1,8 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, MouseEventHandler } from "react";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   content: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   modifier?: string;
 }
 
