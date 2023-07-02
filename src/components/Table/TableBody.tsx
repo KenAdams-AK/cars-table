@@ -3,19 +3,17 @@ import { ComponentProps, useCallback, useMemo } from "react";
 import { Car } from "../../models/car.model";
 
 import Actions from "../Actions";
+import { useCarOriginalKeys } from "../../hooks/useCarOriginalKeys";
 
-interface Props extends ComponentProps<"table"> {
-  data: Car[];
+interface Props extends ComponentProps<"tbody"> {
+  cars: Car[];
 }
 
 export default function TableBody(props: Props) {
-  const { data } = props;
-  const cutData = data.splice(0, 25);
+  const { cars, ...rest } = props;
+  const { originalKeys } = useCarOriginalKeys();
 
-  const keys = useMemo(
-    () => Object.keys(data[0]).concat(["actions"]) as Array<keyof Car | "actions">,
-    [],
-  );
+  const keys = useMemo(() => [...originalKeys, "actions"] as Array<keyof Car | "actions">, []);
 
   const renderRow = useCallback((car: Car) => {
     return keys.map((key) => {
@@ -24,7 +22,11 @@ export default function TableBody(props: Props) {
           return null;
 
         case "availability":
-          return car[key] ? <td key={key}>Available</td> : <td key={key}>Not available</td>;
+          return String(car[key]) === "true" ? (
+            <td key={key}>Available</td>
+          ) : (
+            <td key={key}>Not available</td>
+          );
 
         case "actions":
           return (
@@ -40,14 +42,12 @@ export default function TableBody(props: Props) {
   }, []);
 
   return (
-    <tbody className="TableBody">
-      {cutData.map((car) => {
-        return (
-          <tr key={car.id} className="TableBody__row">
-            {renderRow(car)}
-          </tr>
-        );
-      })}
+    <tbody className="TableBody" {...rest}>
+      {cars.map((car) => (
+        <tr key={car.id} className="TableBody__row">
+          {renderRow(car)}
+        </tr>
+      ))}
     </tbody>
   );
 }

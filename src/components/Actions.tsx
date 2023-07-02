@@ -3,8 +3,8 @@ import { ChangeEvent, useCallback, useState } from "react";
 import { Car } from "../models/car.model";
 
 import Modal from "../layout/Modal";
-import EditCar from "./EditCar";
-import DeleteCar from "./DeleteCar";
+import EditCar from "./Popups/EditCar";
+import DeleteCar from "./Popups/DeleteCar";
 
 interface Props {
   carData: Car;
@@ -12,25 +12,30 @@ interface Props {
 
 export default function Actions(props: Props) {
   const { carData } = props;
-  const [openModal, setOpenModal] = useState<"edit" | "delete" | null>(null);
+  const [action, setAction] = useState<"edit" | "delete" | null>(null);
 
   const handleSelect = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    const target = e.target as HTMLSelectElement;
+    const { target } = e;
 
     if (target.value === "edit") {
-      setOpenModal("edit");
+      setAction("edit");
       target.value = "DEFAULT";
       return;
     }
 
-    setOpenModal("delete");
+    setAction("delete");
     target.value = "DEFAULT";
   }, []);
 
   return (
     <>
       <div className="Actions">
-        <select className="Actions__menu" defaultValue="DEFAULT" onChange={handleSelect}>
+        <select
+          className="Actions__menu"
+          defaultValue="DEFAULT"
+          name="actions"
+          onChange={handleSelect}
+        >
           <option value="DEFAULT" disabled>
             Select...
           </option>
@@ -39,8 +44,14 @@ export default function Actions(props: Props) {
         </select>
       </div>
 
-      <Modal isOpen={Boolean(openModal)} handleClose={() => setOpenModal(null)}>
-        {openModal === "edit" ? <EditCar carData={carData} /> : <DeleteCar carData={carData} />}
+      <Modal isOpen={Boolean(action)} handleClose={() => setAction(null)}>
+        {action === "edit" ? (
+          <EditCar carData={carData} setIsModalOpen={() => setAction(null)} />
+        ) : null}
+
+        {action === "delete" ? (
+          <DeleteCar car={carData} setIsModalOpen={() => setAction(null)} />
+        ) : null}
       </Modal>
     </>
   );

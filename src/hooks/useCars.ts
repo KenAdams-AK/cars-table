@@ -7,7 +7,7 @@ import { useLocalStorage } from "./useLocalStorage";
 import { TTL } from "../constants/TimeToLive";
 import { Car } from "../models/car.model";
 
-export function useCars(): { error: string; cars: Car[] } {
+export function useCars() {
   const [error, setError] = useState<string>("");
   const [cars, setCars] = useLocalStorage<Car[]>("cars", [], TTL.cars);
 
@@ -21,7 +21,7 @@ export function useCars(): { error: string; cars: Car[] } {
     fetchData<{ cars: Car[] }>(apiRouts.FETCH_CARS, controller.signal)
       .then((data) => {
         if (data && data.cars.length > 0) {
-          setCars(data.cars);
+          setCars(data.cars.slice(0, 35));
         }
       })
       .catch((err: Error) => setError(err.message));
@@ -29,5 +29,5 @@ export function useCars(): { error: string; cars: Car[] } {
     return () => controller.abort();
   }, []);
 
-  return { error, cars } as const;
+  return { error, cars, setCars } as const;
 }

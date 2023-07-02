@@ -1,0 +1,36 @@
+.CarForm {
+  &__fieldset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    margin: 0 auto;
+  }
+
+  &__legend {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  &__fieldset label {
+    display: block;
+    width: min(100% - 1rem, 320px);
+  }
+
+  &__fieldset input {
+    display: block;
+    width: 100%;
+    padding: 0.25rem;
+    color: $color-accent;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__actions button:first-child {
+    margin-right: 1rem;
+  }
+}
