@@ -1,19 +1,16 @@
 import { ComponentProps, useMemo } from "react";
 
-import { Car } from "../../models/car.model";
-import { patchCarObjectKeys } from "../../helpers/patchCarObjectKeys";
+import { useCarPatchedKeys } from "../../hooks/useCarPatchedKeys";
 
-interface Props extends ComponentProps<"table"> {
-  data: Car[];
-}
+type Props = ComponentProps<"thead">;
 
 export default function TableHead(props: Props) {
-  const { data } = props;
+  const { patchedKeys } = useCarPatchedKeys();
 
-  const keys = useMemo(() => patchCarObjectKeys(data[0]).slice(1), []);
+  const keys = useMemo(() => [...patchedKeys, "actions".toUpperCase()], []);
 
   return (
-    <thead className="TableHead">
+    <thead className="TableHead" {...props}>
       <tr className="TableHead__row">{keys && keys.map((key) => <th key={key}>{key}</th>)}</tr>
     </thead>
   );
