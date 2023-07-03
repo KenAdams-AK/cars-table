@@ -21,7 +21,7 @@ export function useCars() {
     fetchData<{ cars: Car[] }>(apiRouts.FETCH_CARS, controller.signal)
       .then((data) => {
         if (data && data.cars.length > 0) {
-          setCars(data.cars.slice(0, 35));
+          setCars(data.cars);
         }
       })
       .catch((err: Error) => setError(err.message));
