@@ -16,9 +16,12 @@ interface CarFormProps extends ComponentProps<"form"> {
 
 export default function CarForm(props: CarFormProps) {
   const { formType, car, setIsModalOpen, ...rest } = props;
+
   const { cars, addCar, editCar } = useCarsContext();
+
   const { originalKeys } = useCarOriginalKeys();
   const { patchedKeys } = useCarPatchedKeys();
+
   const [newCar, setNewCar] = useState({} as Car);
 
   useEffect(() => {

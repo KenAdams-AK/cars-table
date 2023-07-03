@@ -13,17 +13,14 @@ interface Props {
 export default function Actions(props: Props) {
   const { carData } = props;
   const [action, setAction] = useState<"edit" | "delete" | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleSelect = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     const { target } = e;
 
-    if (target.value === "edit") {
-      setAction("edit");
-      target.value = "DEFAULT";
-      return;
-    }
+    setAction(e.target.value as typeof action);
+    setIsModalOpen(true);
 
-    setAction("delete");
     target.value = "DEFAULT";
   }, []);
 
@@ -44,14 +41,10 @@ export default function Actions(props: Props) {
         </select>
       </div>
 
-      <Modal isOpen={Boolean(action)} handleClose={() => setAction(null)}>
-        {action === "edit" ? (
-          <EditCar carData={carData} setIsModalOpen={() => setAction(null)} />
-        ) : null}
+      <Modal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)}>
+        {action === "edit" ? <EditCar carData={carData} setIsModalOpen={setIsModalOpen} /> : null}
 
-        {action === "delete" ? (
-          <DeleteCar car={carData} setIsModalOpen={() => setAction(null)} />
-        ) : null}
+        {action === "delete" ? <DeleteCar car={carData} setIsModalOpen={setIsModalOpen} /> : null}
       </Modal>
     </>
   );

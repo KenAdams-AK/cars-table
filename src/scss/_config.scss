@@ -13,11 +13,14 @@ body {
   flex-direction: column;
 
   main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     width: min(100% - 1rem, 1024px);
     margin: 0 auto;
     overflow-x: auto;
 
     flex: 1 1 auto;
-    border: 1px solid red;
   }
 }
