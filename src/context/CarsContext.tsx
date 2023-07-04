@@ -47,7 +47,17 @@ function CarsProvider(props: Props) {
 
   function search(query: string) {
     setError("");
-    const newCarsList = cars.filter((car) => Object.values(car).includes(query));
+
+    const newCarsList = cars.filter((car) => {
+      const values = Object.values(car).map((value) => {
+        if (typeof value === "object") {
+          return "";
+        }
+        return String(value).toLowerCase();
+      });
+
+      return values.includes(query.toLowerCase());
+    });
 
     if (!newCarsList.length) {
       setError("Nothing was found. Please, try another query.");
