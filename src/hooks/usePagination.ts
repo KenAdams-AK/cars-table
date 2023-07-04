@@ -1,23 +1,17 @@
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
 
-import { Car } from "../models/car.model";
-
-export function usePagination(cars: Car[], perPage: number) {
+export function usePagination<Car>(data: Car[], perPage: number) {
   const location = useLocation();
-  const initialPage = Number(location.pathname.split("/").pop() || 1);
-
-  const [currentPage, setCurrentPage] = useState<number>(initialPage);
-
+  const page = Number(location.pathname.split("/").pop() || 1);
   const pages: number[] = [];
 
-  for (let i = 1; i <= Math.ceil(cars.length / perPage); i += 1) {
+  for (let i = 1; i <= Math.ceil(data.length / perPage); i += 1) {
     pages.push(i);
   }
 
-  const lastIndex = currentPage * perPage;
+  const lastIndex = page * perPage;
   const firstIndex = lastIndex - perPage;
-  const currentCars = cars.slice(firstIndex, lastIndex);
+  const currentCars = data.slice(firstIndex, lastIndex);
 
-  return { currentCars, pages, setCurrentPage };
+  return { currentCars, pages } as const;
 }

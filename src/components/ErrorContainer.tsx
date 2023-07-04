@@ -11,7 +11,7 @@ export default function ErrorContainer(props: Props) {
 
   return (
     <div role="alert" aria-label="Error message" className="ErrorContainer">
-      {error}...
+      {error}
     </div>
   );
 }

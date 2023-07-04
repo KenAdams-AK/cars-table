@@ -1,32 +1,39 @@
 import { useCarsContext } from "../../hooks/useCarsContext";
 import { usePagination } from "../../hooks/usePagination";
 import { CarsPagination } from "../../constants/CarsPagination";
+import { Car } from "../../models/car.model";
 
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 import Loader from "../Loader";
 import ErrorContainer from "../ErrorContainer";
 import Pagination from "../Pagination";
+import Search from "../Search";
 
 export default function Table() {
-  const { error, cars } = useCarsContext();
-  const { currentCars, pages, setCurrentPage } = usePagination(cars, CarsPagination.PER_PAGE);
+  const { error, cars, searchResult } = useCarsContext();
+  const { currentCars, pages } = usePagination<Car>(
+    searchResult.length > 0 ? searchResult : cars,
+    CarsPagination.PER_PAGE,
+  );
 
   return (
     <>
-      <Loader isLoading={cars.length <= 0} />
+      <Loader isLoading={!cars.length} />
       <ErrorContainer error={error} />
 
-      {cars && cars.length > 0 ? (
-        <>
-          <table className="Table">
+      <Search />
+
+      <table className="Table">
+        {cars.length > 0 ? (
+          <>
             <TableHead />
             <TableBody cars={currentCars} />
-          </table>
+          </>
+        ) : null}
+      </table>
 
-          <Pagination pages={pages} setCurrentPage={setCurrentPage} />
-        </>
-      ) : null}
+      <Pagination pages={pages} />
     </>
   );
 }
