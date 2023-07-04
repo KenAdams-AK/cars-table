@@ -1,0 +1,17 @@
+.Search {
+  margin-bottom: 1rem;
+
+  &__input {
+    border: 0.125rem solid $color-accent;
+    color: #000;
+    background: url("/src/assets/icons/icon-search.png") no-repeat 0.625rem;
+    background-size: 1.0938rem;
+    background-color: #fff;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    margin-left: 1rem;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

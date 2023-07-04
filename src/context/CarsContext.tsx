@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, createContext, useMemo } from "react";
+import { Dispatch, ReactNode, createContext, useMemo, useState } from "react";
 
 import { useCars } from "../hooks/useCars";
 import { Car } from "../models/car.model";
@@ -8,19 +8,25 @@ interface Props {
 }
 
 type CarsContextType = {
+  error: string;
   cars: Car[];
   setCars: Dispatch<React.SetStateAction<Car[]>>;
-  error: string;
+
   addCar: (car: Car) => void;
   editCar: (car: Car) => void;
   deleteCar: (carId: number) => void;
+
+  search: (query: string) => void;
+  searchResult: Car[];
+  searchReset: () => void;
 };
 
 const CarsContext = createContext({} as CarsContextType);
 
 function CarsProvider(props: Props) {
   const { children } = props;
-  const { cars, setCars, error } = useCars();
+  const { cars, setCars, error, setError } = useCars();
+  const [searchResult, setSearchResult] = useState<Car[]>([]);
 
   function addCar(newCar: Car) {
     setCars([newCar, ...cars]);
@@ -39,16 +45,36 @@ function CarsProvider(props: Props) {
     setCars(newCarsList);
   }
 
+  function search(query: string) {
+    setError("");
+    const newCarsList = cars.filter((car) => Object.values(car).includes(query));
+
+    if (!newCarsList.length) {
+      setError("Nothing was found. Please, try another query.");
+      return;
+    }
+
+    setSearchResult(newCarsList);
+  }
+
+  function searchReset() {
+    setError("");
+    setSearchResult([]);
+  }
+
   const context = useMemo(
     () => ({
+      error,
       cars,
       setCars,
-      error,
       addCar,
       editCar,
       deleteCar,
+      search,
+      searchResult,
+      searchReset,
     }),
-    [cars, error],
+    [cars, error, searchResult],
   );
 
   return <CarsContext.Provider value={context}>{children}</CarsContext.Provider>;

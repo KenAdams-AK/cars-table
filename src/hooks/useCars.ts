@@ -17,7 +17,6 @@ export function useCars() {
     }
 
     const controller = new AbortController();
-
     fetchData<{ cars: Car[] }>(apiRouts.FETCH_CARS, controller.signal)
       .then((data) => {
         if (data && data.cars.length > 0) {
@@ -29,5 +28,5 @@ export function useCars() {
     return () => controller.abort();
   }, []);
 
-  return { error, cars, setCars } as const;
+  return { error, setError, cars, setCars } as const;
 }
