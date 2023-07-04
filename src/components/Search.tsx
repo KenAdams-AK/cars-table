@@ -1,8 +1,8 @@
-import { ChangeEvent, ComponentProps, useCallback, useEffect, useMemo } from "react";
+import { ChangeEvent, ComponentProps, useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import debounce from "lodash.debounce";
 
 import { useCarsContext } from "../hooks/useCarsContext";
+import { useDebounce } from "../hooks/useDebounce";
 
 type Props = ComponentProps<"input">;
 
@@ -17,13 +17,7 @@ export default function Search(props: Props) {
     setSearchParams({ query: value.trim() });
   }, []);
 
-  const debouncedSearch = useMemo(
-    () =>
-      debounce(() => {
-        search(query);
-      }, 800),
-    [query],
-  );
+  const debouncedSearch = useDebounce(() => search(query), 1000);
 
   const handleSearchReset = useCallback(() => {
     searchParams.delete("query");
