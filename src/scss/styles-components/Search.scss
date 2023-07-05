@@ -1,4 +1,6 @@
 .Search {
+  display: flex;
+  gap: 1rem;
   margin-bottom: 1rem;
 
   &__input {
@@ -19,10 +21,24 @@
     background-color: $color-primary-button;
     border-radius: 0.25rem;
     padding: 0.5rem 1rem;
-    margin-left: 2rem;
 
     &:disabled {
       background-color: $color-disabled-button;
+    }
+  }
+}
+
+@media (width < 500px) {
+  .Search {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    text-align: center;
+
+    &__input {
+      width: 100%;
+      margin-left: 0;
     }
   }
 }

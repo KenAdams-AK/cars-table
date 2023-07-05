@@ -1,5 +1,5 @@
 import { ChangeEvent, ComponentProps, useCallback, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 
 import { useCarsContext } from "../hooks/useCarsContext";
 import { useDebounce } from "../hooks/useDebounce";
@@ -10,14 +10,16 @@ type Props = ComponentProps<"input">;
 
 export default function Search(props: Props) {
   const { ...rest } = props;
-  const { search, searchReset } = useCarsContext();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { search, searchReset, searchResult } = useCarsContext();
   const [searchParams, setSearchParams] = useSearchParams({ query: "" });
   const query = searchParams.get("query") ?? "";
 
-  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { value } = e.target;
     setSearchParams({ query: value.trim() });
-  }, []);
+  }
 
   const debouncedSearch = useDebounce(() => search(query), 1000);
 
@@ -32,6 +34,12 @@ export default function Search(props: Props) {
       debouncedSearch();
     }
   }, [query]);
+
+  useEffect(() => {
+    if (searchResult.length) {
+      navigate(`/${location.search}`);
+    }
+  }, [searchResult]);
 
   return (
     <div className="Search">
