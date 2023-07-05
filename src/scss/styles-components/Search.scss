@@ -14,4 +14,15 @@
       outline: none;
     }
   }
+
+  &__reset {
+    background-color: $color-primary-button;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    margin-left: 2rem;
+
+    &:disabled {
+      background-color: $color-disabled-button;
+    }
+  }
 }

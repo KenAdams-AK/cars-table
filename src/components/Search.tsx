@@ -4,6 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { useCarsContext } from "../hooks/useCarsContext";
 import { useDebounce } from "../hooks/useDebounce";
 
+import Button from "../layout/Button";
+
 type Props = ComponentProps<"input">;
 
 export default function Search(props: Props) {
@@ -26,26 +28,31 @@ export default function Search(props: Props) {
   }, []);
 
   useEffect(() => {
-    if (!query) {
-      handleSearchReset();
-      return;
+    if (query) {
+      debouncedSearch();
     }
-
-    debouncedSearch();
   }, [query]);
 
   return (
-    <label className="Search" htmlFor="search">
-      Search query:
-      <input
-        className="Search__input"
-        type="search"
-        id="search"
-        value={query}
-        onChange={handleChange}
-        maxLength={17}
-        {...rest}
+    <div className="Search">
+      <label className="Search__label" htmlFor="search">
+        Search query:
+        <input
+          className="Search__input"
+          type="search"
+          id="search"
+          value={query}
+          onChange={handleChange}
+          maxLength={17}
+          {...rest}
+        />
+      </label>
+      <Button
+        className="Search__reset"
+        content="Reset"
+        onClick={handleSearchReset}
+        disabled={!query}
       />
-    </label>
+    </div>
   );
 }
